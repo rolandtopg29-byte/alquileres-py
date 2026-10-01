@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Alquileres PY - Alquileres en todo Paraguay</title>
+<meta name="description" content="Marketplace de alquileres en todo Paraguay. Busca, encuentra y contacta por WhatsApp.">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQWxxdWlsZXJlcyBQWSIsInNob3J0X25hbWUiOiJBbHF1aWxlcmVzUFkiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjMGYxNzJhIn0=">
+<style>
+:root{--primary:#0f172a;--primary2:#1e293b;--green:#16a34a;--bg:#f8fafc;--card:#ffffff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;--yellow:#eab308;--red:#ef4444}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,Segoe UI,Roboto; background:var(--bg); color:var(--text); padding-bottom:80px}
+header{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:900;letter-spacing:-.5px;font-size:18px} .logo span{color:var(--green)}
+.search-wrap{padding:16px;background:var(--card);border-bottom:1px solid var(--border)}
+.search-box{display:flex;gap:8px}
+.input{flex:1;padding:12px 14px;border:1px solid var(--border);border-radius:12px;font-size:16px;outline:none}
+.input:focus{border-color:var(--primary)}
+.btn{padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff} .btn-green{background:var(--green);color:#fff; width:100%; font-size:17px; padding:16px}
+.filters{display:flex;gap:8px;overflow:auto;padding:12px 16px}
+.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;font-size:13px;cursor:pointer}
+.chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.grid{padding:16px;display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card-img{position:relative;height:190px;background:#e2e8f0;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.75);color:#fff;padding:4px 8px;border-radius:8px;font-size:12px}
+.price{position:absolute;bottom:10px;left:10px;background:#fff;padding:6px 10px;border-radius:10px;font-weight:800}
+.card-body{padding:12px}
+.city{font-size:13px;color:var(--muted)} .title{font-weight:700;margin:2px 0}
+.meta{font-size:13px;color:var(--muted);margin-top:4px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:60}
+.nav button{border:0;background:0;display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--muted);cursor:pointer;padding:4px 10px}
+.nav button.active{color:var(--primary);font-weight:700}
+.modal{position:fixed;inset:0;background:#fff;z-index:80;overflow:auto;display:none}
+.modal.show{display:block}
+.gallery{position:relative;height:300px;background:#000}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gal-nav{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+.gal-nav button{background:rgba(255,255,255,.9);border:0;width:36px;height:36px;border-radius:999px;font-weight:900}
+.detail{padding:16px}
+.detail h2{font-size:20px} .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#f1f5f9;font-size:12px;margin-right:6px}
+.map{height:180px;background:#e2e8f0;border-radius:12px;margin:12px 0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;border:1px solid var(--border)}
+.form{padding:16px;display:grid;gap:12px}
+label{font-size:13px;font-weight:600} .req{color:var(--red)}
+.status{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.PENDING{background:#fef3c7;color:#92400e} .APPROVED{background:#dcfce7;color:#166534} .REJECTED{background:#fee2e2;color:#991b1b}
+.empty{padding:40px 20px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ALQUILERES <span>PY</span></div>
+  <div style="font-size:12px;color:var(--muted)">TODO PARAGUAY · MVP</div>
+</header>
+
+<div id="view-inicio">
+  <div class="search-wrap">
+    <div class="search-box">
+      <input id="q" class="input" placeholder="Buscar ciudad, zona, ej: Encarnación" oninput="filtrar()">
+      <button class="btn btn-primary" onclick="filtrar()">Buscar</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+      <select id="f-depto" class="input" onchange="filtrar()"><option value="">Todo Dpto</option></select>
+      <select id="f-tipo" class="input" onchange="filtrar()"><option value="">Todo tipo</option><option value="casa">Casa</option><option value="departamento">Departamento</option><option value="habitacion">Habitación</option><option value="duplex">Dúplex</option><option value="local comercial">Local comercial</option><option value="oficina">Oficina</option></select>
+    </div>
+  </div>
+  <div class="filters" id="cityChips"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div id="view-publicar" style="display:none">
+  <div style="padding:16px"><h2>Publicar Propiedad</h2><p style="color:var(--muted);font-size:13px">Mínimo 5 fotos obligatorias. Quedará en <b>PENDING</b> hasta aprobación.</p></div>
+  <div class="form">
+    <label>Título <span class="req">*</span></label><input id="p-titulo" class="input" placeholder="Casa en alquiler - Hohenau">
+    <label>Descripción <span class="req">*</span></label><textarea id="p-desc" class="input" rows="3" placeholder="Descripción completa..."></textarea>
+    <label>Precio mensual Gs. <span class="req">*</span></label><input id="p-precio" type="number" class="input" placeholder="2500000">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><label>Ciudad <span class="req">*</span></label><select id="p-ciudad" class="input"></select></div>
+      <div><label>Departamento <span class="req">*</span></label><select id="p-depto" class="input"></select></div>
+    </div>
+    <label>Zona / Barrio <span class="req">*</span></label><input id="p-zona" class="input" placeholder="Centro">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><label>Tipo <span class="req">*</span></label><select id="p-tipo" class="input"><option value="casa">Casa</option><option value="departamento">Departamento</option><option value="habitacion">Habitación</option><option value="duplex">Dúplex</option><option value="local comercial">Local comercial</option><option value="oficina">Oficina</option></select></div>
+      <div><label>WhatsApp <span class="req">*</span> ej: 595981123456</label><input id="p-wa" class="input" placeholder="59598..."></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
+      <div><label>Hab.</label><input id="p-hab" type="number" class="input" value="2"></div>
+      <div><label>Baños</label><input id="p-ban" type="number" class="input" value="1"></div>
+      <div><label>Estac.</label><input id="p-est" type="number" class="input" value="1"></div>
+      <div><label>m²</label><input id="p-m2" type="number" class="input" value="80"></div>
+    </div>
+    <label>Fotos (mínimo 5) <span class="req">*</span> - la primera será portada</label>
+    <input id="p-fotos" type="file" accept="image/*" multiple class="input">
+    <div id="preview" style="display:flex;gap:8px;overflow:auto"></div>
+    <button class="btn btn-primary" onclick="publicar()">Publicar (quedará PENDING)</button>
+    <div id="pub-msg" style="font-size:13px"></div>
+  </div>
+</div>
+
+<div id="view-mis" style="display:none"><div style="padding:16px"><h2>Mis Publicaciones</h2></div><div id="mis-grid" class="grid"></div></div>
+<div id="view-admin" style="display:none"><div style="padding:16px"><h2>Panel Admin - Pendientes</h2><p style="font-size:13px;color:var(--muted)">Solo APPROVED aparece público. Estructura lista para Supabase.</p></div><div id="admin-grid" class="grid"></div></div>
+
+<div id="modal" class="modal">
+  <div style="position:sticky;top:0;z-index:2;background:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
+    <button class="btn" onclick="cerrar()">← Volver</button><div id="m-estado"></div>
+  </div>
+  <div class="gallery"><img id="m-img"><div class="gal-nav"><button onclick="gal(-1)">‹</button><button onclick="gal(1)">›</button></div><div id="m-count" class="badge" style="bottom:10px;top:auto"></div></div>
+  <div class="detail">
+    <div id="m-precio" style="font-size:22px;font-weight:900"></div>
+    <h2 id="m-titulo"></h2>
+    <div id="m-ciudad" style="color:var(--muted)"></div>
+    <div style="margin:10px 0" id="m-pills"></div>
+    <p id="m-desc" style="margin:12px 0;line-height:1.5"></p>
+    <div class="map" id="m-map"></div>
+    <div style="background:#f8fafc;padding:12px;border-radius:12px;border:1px solid var(--border);margin:12px 0"><div style="font-size:13px;color:var(--muted)">Anunciante</div><div id="m-anunc" style="font-weight:700"></div><div id="m-wa" style="font-size:13px"></div></div>
+    <button id="m-wabtn" class="btn btn-green">CONTACTAR POR WHATSAPP</button>
+    <div id="m-admin-actions" style="display:none;margin-top:16px;display:flex;gap:8px"><button class="btn btn-primary" style="flex:1" onclick="aprobarActual()">APROBAR</button><button class="btn" style="flex:1;background:#fee2e2" onclick="rechazarActual()">RECHAZAR</button></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <button id="n-inicio" class="active" onclick="nav('inicio')">🏠<span>Inicio</span></button>
+  <button onclick="document.getElementById('q').focus();nav('inicio')">🔍<span>Buscar</span></button>
+  <button id="n-publicar" onclick="nav('publicar')">➕<span>Publicar</span></button>
+  <button id="n-mis" onclick="nav('mis')">📄<span>Mis</span></button>
+  <button id="n-admin" onclick="nav('admin')">🛡️<span>Admin</span></button>
+</nav>
+
+<script>
+// --- SUPABASE READY STRUCTURE (comentado para futuro) ---
+// tables: users(id uuid, email, nombre), properties(id uuid, user_id uuid, titulo, descripcion, precio int, ciudad text, depto text, zona text, tipo text, hab int, banos int, est int, m2 int, whatsapp text, status enum pending/approved/rejected, lat float, lng float, created_at), property_images(id uuid, property_id uuid, url text, is_cover bool)
+// Auth: Supabase Auth. Storage: Supabase Storage para imagenes. No exponer keys en frontend, usar RLS.
+
+const CITIES=["Asunción","Ciudad del Este","Encarnación","San Lorenzo","Luque","Fernando de la Mora","Lambaré","Capiatá","Ñemby","Villa Elisa","Coronel Oviedo","Hohenau","Obligado","Bella Vista","Fram","Caacupé","Villarrica","Pedro Juan Caballero","Concepción","Mariano Roque Alonso","Itá","Limpio","Areguá"];
+const DEPTOS=["Asunción","Alto Paraná","Itapúa","Central","Caaguazú","Guairá","Amambay","Concepción","Cordillera"];
+function seedImg(s,i){ return `https://picsum.photos/seed/${s}${i}/800/600`; }
+
+let DEMO=[
+{id:"demo1",titulo:"Casa en alquiler - Hohenau",descripcion:"Casa amplia con patio, ideal familia. 3 habitaciones, cocina equipada, patio con parrilla.",precio:2500000,ciudad:"Hohenau",departamento:"Itapúa",zona:"Centro",tipo:"casa",habitaciones:3,banos:2,estacionamiento:2,superficie:140,whatsapp:"595981111001",imagenes:[seedImg('alq1',1),seedImg('alq1',2),seedImg('alq1',3),seedImg('alq1',4),seedImg('alq1',5),seedImg('alq1',6)],estado:"APPROVED",fecha:new Date().toISOString(),lat:-27.08,lng:-55.64,userId:"demo",anunciante:"Propietario Hohenau",isDemo:true},
+{id:"demo2",titulo:"Departamento en alquiler - Encarnación",descripcion:"Depto céntrico, 2 hab, cerca de la costanera. Muy luminoso.",precio:2000000,ciudad:"Encarnación",departamento:"Itapúa",zona:"Centro",tipo:"departamento",habitaciones:2,banos:1,estacionamiento:1,superficie:65,whatsapp:"595981111002",imagenes:[seedImg('alq2',1),seedImg('alq2',2),seedImg('alq2',3),seedImg('alq2',4),seedImg('alq2',5)],estado:"APPROVED",fecha:new Date().toISOString(),lat:-27.33,lng:-55.86,userId:"demo",anunciante:"Inmobiliaria Encarnación",isDemo:true},
+{id:"demo3",titulo:"Casa en alquiler - Obligado",descripcion:"Casa con 4 hab, galpón y patio grande. Zona tranquila.",precio:3000000,ciudad:"Obligado",departamento:"Itapúa",zona:"Villa Colonial",tipo:"casa",habitaciones:4,banos:2,estacionamiento:2,superficie:200,whatsapp:"595981111003",imagenes:[seedImg('alq3',1),seedImg('alq3',2),seedImg('alq3',3),seedImg('alq3',4),seedImg('alq3',5)],estado:"APPROVED",fecha:new Date().toISOString(),lat:-27.06,lng:-55.62,userId:"demo",anunciante:"Familia Obligado",isDemo:true},
+{id:"demo4",titulo:"Casa en alquiler - Asunción",descripcion:"Casa en barrio cerrado, seguridad 24h, piscina.",precio:4500000,ciudad:"Asunción",departamento:"Asunción",zona:"Villa Morra",tipo:"casa",habitaciones:3,banos:3,estacionamiento:2,superficie:180,whatsapp:"595981111004",imagenes:[seedImg('alq4',1),seedImg('alq4',2),seedImg('alq4',3),seedImg('alq4',4),seedImg('alq4',5)],estado:"APPROVED",fecha:new Date().toISOString(),lat:-25.28,lng:-57.57,userId:"demo",anunciante:"Propietario Asunción",isDemo:true},
+{id:"demo5",titulo:"Departamento - Ciudad del Este",descripcion:"Depto 1 hab, amoblado, ideal estudiantes.",precio:1800000,ciudad:"Ciudad del Este",departamento:"Alto Paraná",zona:"Centro",tipo:"departamento",habitaciones:1,banos:1,estacionamiento:0,superficie:40,whatsapp:"595981111005",imagenes:[seedImg('alq5',1),seedImg('alq5',2),seedImg('alq5',3),seedImg('alq5',4),seedImg('alq5',5)],estado:"APPROVED",fecha:new Date().toISOString(),lat:-25.51,lng:-54.61,userId:"demo",anunciante:"Dueño CDE",isDemo:true},
+{id:"demo6",titulo:"Local comercial - Bella Vista",descripcion:"Local sobre avenida, alto tránsito.",precio:3200000,ciudad:"Bella Vista",departamento:"Itapúa",zona:"Centro",tipo:"local comercial",habitaciones:1,banos:1,estacionamiento:1,superficie:90,whatsapp:"595981111006",imagenes:[seedImg('alq6',1),seedImg('alq6',2),seedImg('alq6',3),seedImg('alq6',4),seedImg('alq6',5)],estado:"APPROVED",fecha:new Date().toISOString(),lat:-27.03,lng:-55.57,userId:"demo",anunciante:"Comercial Bella Vista",isDemo:true},
+];
+
+let STORAGE_KEY="alquilerespy_properties_v2";
+let allProps=[...DEMO, ...JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]")];
+let currentFiltered=[...allProps];
+let currentModal=null; let galIdx=0;
+
+function init(){
+ document.getElementById('f-depto').innerHTML='<option value="">Todo Dpto</option>'+DEPTOS.map(d=>`<option value="${d}">${d}</option>`).join('');
+ document.getElementById('p-ciudad').innerHTML=CITIES.map(c=>`<option value="${c}">${c}</option>`).join('');
+ document.getElementById('p-depto').innerHTML=DEPTOS.map(d=>`<option value="${d}">${d}</option>`).join('');
+ document.getElementById('cityChips').innerHTML=CITIES.map(c=>`<div class="chip" onclick="setCity('${c}')">${c}</div>`).join('');
+ document.getElementById('p-fotos').addEventListener('change', handleFotos);
+ filtrar();
+ renderMis(); renderAdmin();
+}
+let fotosTemp=[];
+function handleFotos(e){
+ fotosTemp=[]; const files=[...e.target.files]; const preview=document.getElementById('preview'); preview.innerHTML='';
+ if(files.length<5){ preview.innerHTML='<span style="color:red;font-size:12px">Mínimo 5 fotos</span>'; return; }
+ files.forEach(f=>{ const r=new FileReader(); r.onload=ev=>{ fotosTemp.push(ev.target.result); const img=document.createElement('img'); img.src=ev.target.result; img.style.width='80px'; img.style.height='80px'; img.style.objectFit='cover'; img.style.borderRadius='10px'; preview.appendChild(img); }; r.readAsDataURL(f); });
+}
+function filtrar(){
+ const q=document.getElementById('q').value.toLowerCase(); const dpto=document.getElementById('f-depto').value; const tipo=document.getElementById('f-tipo').value;
+ currentFiltered=allProps.filter(p=>p.estado==='APPROVED' && (!q || p.ciudad.toLowerCase().includes(q) || p.zona.toLowerCase().includes(q) || p.titulo.toLowerCase().includes(q)) && (!dpto || p.departamento===dpto) && (!tipo || p.tipo===tipo));
+ renderGrid(currentFiltered);
+}
+function setCity(c){ document.getElementById('q').value=c; filtrar(); }
+function renderGrid(list){
+ const g=document.getElementById('grid');
+ if(!list.length){ g.innerHTML='<div class="empty">No hay propiedades. Probá otra ciudad o publicá una.</div>'; return; }
+ g.innerHTML=list.map(p=>`
+  <div class="card" onclick="abrir('${p.id}')">
+   <div class="card-img"><img src="${p.imagenes[0]}" loading="lazy"><div class="badge">${p.imagenes.length} fotos</div><div class="price">Gs. ${Number(p.precio).toLocaleString('es-PY')} /mes</div></div>
+   <div class="card-body">
+    <div class="city">${p.ciudad}, ${p.departamento} · ${p.zona}</div>
+    <div class="title">${p.titulo}</div>
+    <div class="meta">${p.tipo} · ${p.habitaciones} hab · ${p.banos} baños ${p.isDemo?'<span style="font-size:10px;background:#f1f5f9;padding:2px 6px;border-radius:6px">DEMO</span>':''}</div>
+    <button class="btn" style="margin-top:8px;width:100%;border:1px solid var(--border)">VER PROPIEDAD</button>
+   </div>
+  </div>`).join('');
+}
+function abrir(id){
+ const p=allProps.find(x=>x.id===id); if(!p)return; currentModal=p; galIdx=0; document.getElementById('modal').classList.add('show');
+ document.getElementById('m-precio').textContent=`Gs. ${Number(p.precio).toLocaleString('es-PY')} /mes`;
+ document.getElementById('m-titulo').textContent=p.titulo;
+ document.getElementById('m-ciudad').textContent=`${p.ciudad}, ${p.departamento} · ${p.zona} · ${p.tipo}`;
+ document.getElementById('m-pills').innerHTML=`<span class="pill">${p.habitaciones} hab</span><span class="pill">${p.banos} baños</span><span class="pill">${p.estacionamiento} estac.</span><span class="pill">${p.superficie} m²</span>`;
+ document.getElementById('m-desc').textContent=p.descripcion;
+ document.getElementById('m-anunc').textContent=p.anunciante; document.getElementById('m-wa').textContent=p.whatsapp;
+ document.getElementById('m-map').innerHTML=`Ubicación aprox: ${p.ciudad}, ${p.departamento}<br><a target="_blank" href="https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lng}#map=15/${p.lat}/${p.lng}">Ver en OpenStreetMap</a>`;
+ document.getElementById('m-estado').innerHTML=`<span class="status ${p.estado}">${p.estado}</span>`;
+ document.getElementById('m-wabtn').onclick=()=>{ const msg=`Hola, vi tu propiedad publicada en Alquileres PY - ${p.titulo} (Gs. ${p.precio}) y quisiera más información.`; window.open(`https://wa.me/${p.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank'); };
+ document.getElementById('m-admin-actions').style.display = (p.estado!=='APPROVED') ? 'flex' : 'none';
+ updateGal();
+}
+function updateGal(){ if(!currentModal)return; document.getElementById('m-img').src=currentModal.imagenes[galIdx]; document.getElementById('m-count').textContent=`${galIdx+1}/${currentModal.imagenes.length}`; }
+function gal(d){ if(!currentModal)return; galIdx=(galIdx+d+currentModal.imagenes.length)%currentModal.imagenes.length; updateGal(); }
+function cerrar(){ document.getElementById('modal').classList.remove('show'); currentModal=null; }
+function nav(v){
+ document.getElementById('view-inicio').style.display=v==='inicio'?'block':'none';
+ document.getElementById('view-publicar').style.display=v==='publicar'?'block':'none';
+ document.getElementById('view-mis').style.display=v==='mis'?'block':'none';
+ document.getElementById('view-admin').style.display=v==='admin'?'block':'none';
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ const map={inicio:'n-inicio',publicar:'n-publicar',mis:'n-mis',admin:'n-admin'}; const el=document.getElementById(map[v]); if(el)el.classList.add('active');
+ if(v==='mis')renderMis(); if(v==='admin')renderAdmin();
+}
+function publicar(){
+ const titulo=document.getElementById('p-titulo').value.trim(); const desc=document.getElementById('p-desc').value.trim(); const precio=parseInt(document.getElementById('p-precio').value); const ciudad=document.getElementById('p-ciudad').value; const depto=document.getElementById('p-depto').value; const zona=document.getElementById('p-zona').value.trim(); const tipo=document.getElementById('p-tipo').value; const wa=document.getElementById('p-wa').value.trim(); const hab=parseInt(document.getElementById('p-hab').value)||0; const ban=parseInt(document.getElementById('p-ban').value)||0; const est=parseInt(document.getElementById('p-est').value)||0; const m2=parseInt(document.getElementById('p-m2').value)||0;
+ const msgEl=document.getElementById('pub-msg');
+ if(!titulo||!desc||!precio||!ciudad||!depto||!zona||!wa){ msgEl.innerHTML='<span style="color:red">Completa todos los obligatorios *</span>'; return; }
+ if(fotosTemp.length<5){ msgEl.innerHTML='<span style="color:red">Mínimo 5 fotos obligatorias</span>'; return; }
+ if(!wa.startsWith('595')){ msgEl.innerHTML='<span style="color:red">WhatsApp debe empezar con 595 (Paraguay)</span>'; return; }
+ const nueva={id:'prop_'+Date.now(),titulo,descripcion:desc,precio,ciudad,departamento:depto,zona,tipo,habitaciones:hab,banos:ban,estacionamiento:est,superficie:m2,whatsapp:wa,imagenes:[...fotosTemp],estado:'PENDING',fecha:new Date().toISOString(),lat:-27.33+Math.random()*0.2,lng:-55.86+Math.random()*0.2,userId:'local_user',anunciante:'Tú'};
+ const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); stored.push(nueva); localStorage.setItem(STORAGE_KEY,JSON.stringify(stored)); allProps=[...DEMO,...stored]; fotosTemp=[]; document.getElementById('preview').innerHTML=''; msgEl.innerHTML='<span style="color:green">¡Enviado! Quedó en PENDING. Anda a Admin para aprobar y verla pública.</span>';
+ // reset
+ document.getElementById('p-titulo').value=''; document.getElementById('p-desc').value=''; document.getElementById('p-precio').value=''; document.getElementById('p-zona').value=''; document.getElementById('p-wa').value='';
+ renderMis(); renderAdmin();
+}
+function renderMis(){
+ const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); const g=document.getElementById('mis-grid');
+ if(!stored.length){ g.innerHTML='<div class="empty">Aún no publicaste. Cuando publiques, verás aquí PENDING / APPROVED / REJECTED.</div>'; return; }
+ g.innerHTML=stored.map(p=>`
+  <div class="card" onclick="abrir('${p.id}')">
+   <div class="card-img"><img src="${p.imagenes[0]}"><div class="badge"><span class="status ${p.estado}">${p.estado}</span></div></div>
+   <div class="card-body"><div class="title">${p.titulo}</div><div class="city">${p.ciudad} - Gs. ${Number(p.precio).toLocaleString('es-PY')}</div></div>
+  </div>`).join('');
+}
+function renderAdmin(){
+ const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); const all=[...stored]; const g=document.getElementById('admin-grid');
+ const pending=all.filter(p=>p.estado==='PENDING');
+ if(!pending.length){ g.innerHTML='<div class="empty">No hay pendientes. ¡Todo al día!</div>'; return; }
+ g.innerHTML=pending.map(p=>`
+  <div class="card">
+   <div class="card-img"><img src="${p.imagenes[0]}"><div class="price">Gs. ${Number(p.precio).toLocaleString()}</div></div>
+   <div class="card-body">
+    <div class="title">${p.titulo}</div><div class="city">${p.ciudad}, ${p.zona} - ${p.whatsapp}</div>
+    <div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary" style="flex:1" onclick="aprobar('${p.id}')">Aprobar</button><button class="btn" style="flex:1;background:#fee2e2" onclick="rechazar('${p.id}')">Rechazar</button><button class="btn" style="flex:1" onclick="abrir('${p.id}')">Ver</button></div>
+   </div>
+  </div>`).join('');
+}
+function aprobar(id){ updateStatus(id,'APPROVED'); }
+function rechazar(id){ const motivo=prompt('Motivo de rechazo:')||'No cumple requisitos'; let stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); stored=stored.map(p=> p.id===id?{...p,estado:'REJECTED',motivoRechazo:motivo}:p); localStorage.setItem(STORAGE_KEY,JSON.stringify(stored)); allProps=[...DEMO,...stored]; renderAdmin(); renderMis(); filtrar(); }
+function aprobarActual(){ if(currentModal)aprobar(currentModal.id); cerrar(); }
+function rechazarActual(){ if(currentModal)rechazar(currentModal.id); cerrar(); }
+function updateStatus(id,status){ let stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); stored=stored.map(p=> p.id===id?{...p,estado:status}:p); localStorage.setItem(STORAGE_KEY,JSON.stringify(stored)); allProps=[...DEMO,...stored]; renderAdmin(); renderMis(); filtrar(); }
+
+init();
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('data:text/javascript;base64,'+btoa('self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("fetch",e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));')).catch(()=>{}); }
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>
