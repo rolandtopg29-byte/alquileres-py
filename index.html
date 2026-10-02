@@ -10,7 +10,7 @@
 <nav><button id="nav-home" class="active" onclick="showPage('home')">🔍 Buscar</button><button id="nav-publish" onclick="showPage('publish')">＋ Publicar</button><button id="nav-mine" onclick="showPage('mine')">📋 Mías</button><button id="nav-admin" onclick="showPage('admin')">⚙️ Admin</button></nav>
 <script>
 const SUPABASE_URL = "https://luuvyaliasfqoxufraoq.supabase.co";
-const SUPABASE_ANON_KEY = "PEGA_AQUI_TU_CLAVE_PUBLISHABLE";
+const SUPABASE_ANON_KEY = "sb_publishable__znIzjW5Hlz626OaVDPMCw_qicDr6Cj";
 const supa = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let currentUser=null,isAdmin=false,selectedFiles=[];
 const DEPTS=["Itapúa","Alto Paraná","Central","Asunción","Caaguazú","Misiones","Guairá","Paraguarí","Cordillera","San Pedro","Canindeyú","Amambay","Concepción","Ñeembucú","Presidente Hayes","Boquerón","Alto Paraguay","Caazapá"];
